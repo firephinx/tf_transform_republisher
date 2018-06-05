@@ -1,0 +1,12 @@
+<launch>
+
+  <node pkg="tf_transform_republisher" type="tf_transform_republisher_node" name="tf_transform_republisher_node" output="screen">
+    <param name="publish_frequency"                   value="10" />
+    <param name="static_tf_transform"                 value="true" />
+    <param name="input_tf_transform_parent_frame_id"  value="/camera_rgb_optical_frame" />
+    <param name="input_tf_transform_child_frame_id"   value="/camera_depth_optical_frame" />
+    <param name="output_tf_transform_parent_frame_id" value="/camera_rgb_optical_frame_republished" />
+    <param name="output_tf_transform_child_frame_id"  value="/camera_depth_optical_frame_republished" />
+  </node>
+
+</launch>
