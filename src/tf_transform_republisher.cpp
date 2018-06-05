@@ -20,15 +20,18 @@ TFTransformRepublisher::TFTransformRepublisher() : nh_("~")
     bool tf_transform_received = false;
     tf::StampedTransform transform;
 
+    ROS_INFO("Waiting for tf transform.");
+
     while(!tf_transform_received)
     {
         try 
         {
             tl_.waitForTransform(input_tf_transform_parent_frame_id, input_tf_transform_child_frame_id, ros::Time(0), ros::Duration(10.0));
-            tl_.lookupTransform(input_tf_transform_child_frame_id, input_tf_transform_parent_frame_id, ros::Time(0), transform);
+            tl_.lookupTransform(input_tf_transform_parent_frame_id, input_tf_transform_child_frame_id, ros::Time(0), transform);
             transform_.setOrigin(transform.getOrigin());
             transform_.setRotation(transform.getRotation());
             tf_transform_received = true;
+            ROS_INFO("Received tf transform.");
         }
         catch (tf::TransformException ex)
         {
